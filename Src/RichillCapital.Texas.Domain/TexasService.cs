@@ -7,7 +7,11 @@ namespace RichillCapital.Texas.Domain;
 
 internal class TexasService : ITexasService
 {
+    internal const int DefaultBuyInSize = 1000;
+
     private Maybe<Session> CurrentSession { get; set; }
+
+    public Maybe<Session> GetCurrentSession() => CurrentSession;
 
     public Result<Player> AddPlayer(string name)
     {
@@ -43,13 +47,29 @@ internal class TexasService : ITexasService
         return errorOrPlayer.Value.ToResult();
     }
     
-    public Result BuyIn(int groups = 1) => Result.Success;
+    public Result BuyIn(PlayerId playerId, int groups = 1)
+    {
+        var maybePlayer = GetPlayer(playerId);
+
+        if (maybePlayer.IsNull)
+        {
+            return DomainErrors
+                .PlayerNotFound(playerId)
+                .ToResult();
+        }
+
+        var player = maybePlayer.Value;
+
+        player.BuyIn(groups * CurrentSession.Value.BuyInSize);
+
+        return Result.Success;
+    }
     
     public Result CashOut(int finalChipValue) => Result.Success;
     
     public Result CloseSession() => Result.Success;
     
-    public Result<Session> NewSession()
+    public Result<Session> NewSession(int buyInSize = DefaultBuyInSize)
     {
         if (CurrentSession.HasValue)
         {
@@ -58,7 +78,7 @@ internal class TexasService : ITexasService
                 .ToResult<Session>();
         }
 
-        var errorOrSession = Session.New();
+        var errorOrSession = Session.New(buyInSize);
 
         if (errorOrSession.HasError)
         {
@@ -72,5 +92,19 @@ internal class TexasService : ITexasService
         CurrentSession = newSession.ToMaybe();
 
         return newSession.ToResult();
+    }
+
+    public int GetPlayerCount() => CurrentSession.HasValue ? 
+        CurrentSession.Value.Players.Count : 0;
+
+    public int GetTotalBuyIn() => CurrentSession.HasValue ? 
+        CurrentSession.Value.Players.Sum(player => player.TotalBuyIn) : 0;
+
+    private Maybe<Player> GetPlayer(PlayerId id)
+    {
+        var player = CurrentSession.Value.Players
+            .FirstOrDefault(p => p.Id == id);
+
+        return Maybe<Player>.With(player!);
     }
 }

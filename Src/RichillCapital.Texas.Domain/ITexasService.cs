@@ -4,9 +4,11 @@ namespace RichillCapital.Texas.Domain;
 
 public interface ITexasService
 {
-    Result<Session> NewSession();
+    Result<Session> NewSession(int buyInSize = 1000);
     Result<Player> AddPlayer(string name);
-    Result BuyIn(int groups = 1);
+    Result BuyIn(PlayerId playerId, int groups = 1);
     Result CashOut(int finalChipValue);
     Result CloseSession();
+    int GetPlayerCount();
+    int GetTotalBuyIn();
 }

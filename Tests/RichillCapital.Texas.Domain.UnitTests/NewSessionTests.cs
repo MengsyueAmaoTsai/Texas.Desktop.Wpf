@@ -35,5 +35,6 @@ public sealed class NewSessionTests
         session.Should().NotBeNull();
         session.Id.Should().NotBeNull();
         session.Players.Should().HaveCount(0);
+        session.BuyInSize.Should().Be(TexasService.DefaultBuyInSize);
     }
 }

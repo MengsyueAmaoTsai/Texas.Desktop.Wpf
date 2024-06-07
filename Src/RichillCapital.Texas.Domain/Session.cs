@@ -10,17 +10,24 @@ public sealed class Session : Entity<SessionId>
     private readonly List<Player> _players = [];
 
     public Session(
-        SessionId id) 
+        SessionId id,
+        int buyInSize) 
         : base(id)
     {
+        BuyInSize = buyInSize;
     }
+    
+    public int BuyInSize { get; private set; }
 
     public IReadOnlyCollection<Player> Players => _players;
 
-    public static ErrorOr<Session> New()
+    public int TotalBuyIn => _players.Sum(p => p.TotalBuyIn);
+
+    public static ErrorOr<Session> New(int buyInSize)
     {
         var newSession = new Session(
-            SessionId.NewSessionId());
+            SessionId.NewSessionId(),
+            buyInSize);
 
         return newSession.ToErrorOr();
     }
