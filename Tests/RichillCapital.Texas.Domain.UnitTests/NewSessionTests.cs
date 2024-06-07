@@ -10,10 +10,10 @@ public sealed class NewSessionTests
     {
         // Arrange
         var texasService = new TexasService();
-        texasService.NewSession();
+        texasService.NewSessionAsync();
         
         // Act
-        var result = texasService.NewSession();
+        var result = texasService.NewSessionAsync();
         
         // Assert
         result.IsFailure.Should().BeTrue();
@@ -27,7 +27,7 @@ public sealed class NewSessionTests
         var texasService = new TexasService();
         
         // Act
-        var result = texasService.NewSession();
+        var result = texasService.NewSessionAsync();
         
         // Assert
         result.IsSuccess.Should().BeTrue();

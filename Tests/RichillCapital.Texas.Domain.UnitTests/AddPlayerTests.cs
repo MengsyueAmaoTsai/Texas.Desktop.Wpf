@@ -25,7 +25,7 @@ public sealed class AddPlayerTests
         // Arrange
         var texasService = new TexasService();
 
-        texasService.NewSession();
+        texasService.NewSessionAsync();
 
         // Act
         texasService.AddPlayer("jiayee");
@@ -42,7 +42,7 @@ public sealed class AddPlayerTests
         // Arrange
         var texasService = new TexasService();
 
-        texasService.NewSession();
+        texasService.NewSessionAsync();
 
         List<string> players =
         [

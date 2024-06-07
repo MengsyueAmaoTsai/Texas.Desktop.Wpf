@@ -2,6 +2,6 @@
 
 namespace RichillCapital.Texas.Domain.Events;
 
-public sealed record PlayerCashedOutDomainEvent : DomainEvent
+public sealed record PlayerJoinedDomainEvent : DomainEvent
 {
 }

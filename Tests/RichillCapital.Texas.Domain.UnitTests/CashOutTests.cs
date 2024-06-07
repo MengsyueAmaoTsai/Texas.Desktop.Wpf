@@ -14,7 +14,7 @@ public sealed class CashOutTests
         // Assert
         var service = new TexasService();
 
-        service.NewSession();
+        service.NewSessionAsync();
         var playerResult = service.AddPlayer("JiaYee").ThrowIfFailure();
 
         // Act
@@ -32,12 +32,12 @@ public sealed class CashOutTests
         // Assert
         var service = new TexasService();
 
-        service.NewSession();
+        service.NewSessionAsync();
         var playerResult = service
             .AddPlayer("JiaYee")
             .ThrowIfFailure();
 
-        _ = service.BuyIn(playerResult.Value.Id, 3000);
+        _ = service.BuyInAsync(playerResult.Value.Id, 3000);
         _ = service.CashOut(playerResult.Value.Id, 1500);
 
         // Act
@@ -54,7 +54,7 @@ public sealed class CashOutTests
         // Arrange
         var service = new TexasService();
 
-        service.NewSession();
+        service.NewSessionAsync();
 
         var players = new List<(string Name, int InitialBuyIn, int RemainingChips)>
         {
@@ -67,7 +67,7 @@ public sealed class CashOutTests
 
         foreach (var player in players)
         {
-            _ = service.BuyIn(player.Id, player.InitialBuyIn);
+            _ = service.BuyInAsync(player.Id, player.InitialBuyIn);
         }
 
         var currentSession = service.GetCurrentSession().Value;

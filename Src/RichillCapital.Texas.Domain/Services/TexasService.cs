@@ -1,7 +1,9 @@
-﻿using RichillCapital.SharedKernel.Monads;
+﻿using MediatR;
+using RichillCapital.SharedKernel.Monads;
 using RichillCapital.Texas.Domain.Common;
 using RichillCapital.Texas.Domain.Entities;
 using RichillCapital.Texas.Domain.Errors;
+using RichillCapital.Texas.Domain.Events;
 using RichillCapital.Texas.Domain.ValueObjects;
 using System.Runtime.CompilerServices;
 
@@ -9,7 +11,9 @@ using System.Runtime.CompilerServices;
 
 namespace RichillCapital.Texas.Domain.Services;
 
-internal class TexasService : ITexasService
+internal class TexasService(
+    IMediator _medaitor) : 
+    ITexasService
 {
     internal const int DefaultBuyInSize = 1000;
 
@@ -17,7 +21,7 @@ internal class TexasService : ITexasService
 
     public Maybe<Session> GetCurrentSession() => CurrentSession;
 
-    public Result<Player> AddPlayer(string name)
+    public async Task<Result<Player>> AddPlayerAsync(string name, CancellationToken cancellationToken = default)
     {
         if (CurrentSession.IsNull)
         {
@@ -48,10 +52,19 @@ internal class TexasService : ITexasService
             return addPlayerResult.Error.ToResult<Player>();
         }
 
+        await _medaitor.Publish(
+            new PlayerJoinedDomainEvent
+            {
+            }, 
+            cancellationToken);
+
         return errorOrPlayer.Value.ToResult();
     }
 
-    public Result BuyIn(PlayerId playerId, int groups = 1)
+    public async Task<Result> BuyInAsync(
+        PlayerId playerId, 
+        int groups = 1,
+        CancellationToken cancellationToken = default)
     {
         var maybePlayer = GetPlayer(playerId);
 
@@ -66,12 +79,19 @@ internal class TexasService : ITexasService
 
         player.BuyIn(groups * CurrentSession.Value.BuyInSize);
 
+        await _medaitor.Publish(
+            new PlayerBoughtInDomainEvent
+            {
+            }, 
+            cancellationToken);
+
         return Result.Success;
     }
 
-    public Result CashOut(
+    public async Task<Result> CashOutAsync(
         PlayerId playerId,
-        int remainingSize)
+        int remainingSize,
+        CancellationToken cancellationToken = default)
     {
         var maybePlayer = GetPlayer(playerId);
 
@@ -84,10 +104,20 @@ internal class TexasService : ITexasService
 
         var cashOutResult = maybePlayer.Value.CashOut(remainingSize);
 
+        if (cashOutResult.IsFailure)
+        {
+            return cashOutResult.Error.ToResult();
+        }
+
+        await _medaitor.Publish(
+            new PlayerCashedOutDomainEvent
+            {
+            },
+            cancellationToken);
         return cashOutResult;
     }
 
-    public Result CloseSession()
+    public async Task<Result> CloseSessionAsync()
     {
         if (CurrentSession.IsNull)
         {
@@ -98,10 +128,16 @@ internal class TexasService : ITexasService
 
         CurrentSession = Maybe<Session>.Null;
 
+        await _medaitor.Publish(
+            new SessionClosedDomainEvent(), 
+            CancellationToken.None);
+
         return Result.Success;
     }
 
-    public Result<Session> NewSession(int buyInSize = DefaultBuyInSize)
+    public async Task<Result<Session>> NewSessionAsync(
+        int buyInSize = DefaultBuyInSize,
+        CancellationToken cancellationToken = default)
     {
         if (CurrentSession.HasValue)
         {
@@ -123,6 +159,10 @@ internal class TexasService : ITexasService
 
         CurrentSession = newSession.ToMaybe();
 
+        await _medaitor.Publish(
+            new SessionOpenedDomainEvent(), 
+            cancellationToken);
+
         return newSession.ToResult();
     }
 
@@ -139,4 +179,8 @@ internal class TexasService : ITexasService
 
         return Maybe<Player>.With(player!);
     }
+
+    public IEnumerable<Player> GetPlayers() => CurrentSession.HasValue ? 
+        CurrentSession.Value.Players.ToList() : 
+        [];
 }

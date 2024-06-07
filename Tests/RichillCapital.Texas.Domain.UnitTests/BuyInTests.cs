@@ -19,7 +19,7 @@ public sealed class BuyInTests
         };
 
         // Act
-        texasService.NewSession();
+        texasService.NewSessionAsync();
 
         var buyInResults = players
             .Select(p =>
@@ -33,7 +33,7 @@ public sealed class BuyInTests
 
                 var player = addPlayerResult.Value;
 
-                var buyIdResult = texasService.BuyIn(player.Id, p.InitialBuyIn);
+                var buyIdResult = texasService.BuyInAsync(player.Id, p.InitialBuyIn);
 
                 return buyIdResult;
             });

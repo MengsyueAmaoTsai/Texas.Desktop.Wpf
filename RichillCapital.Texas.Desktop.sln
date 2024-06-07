@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E78798DB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichillCapital.Texas.Domain.UnitTests", "Tests\RichillCapital.Texas.Domain.UnitTests\RichillCapital.Texas.Domain.UnitTests.csproj", "{F874218A-CC82-45F7-9EF8-3FD648EBE5C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichillCapital.Texas.Notifications", "Src\RichillCapital.Texas.Notifications\RichillCapital.Texas.Notifications.csproj", "{AEB3F3DD-FA8E-4290-AE41-B23960AB0A75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{F874218A-CC82-45F7-9EF8-3FD648EBE5C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F874218A-CC82-45F7-9EF8-3FD648EBE5C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F874218A-CC82-45F7-9EF8-3FD648EBE5C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEB3F3DD-FA8E-4290-AE41-B23960AB0A75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB3F3DD-FA8E-4290-AE41-B23960AB0A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB3F3DD-FA8E-4290-AE41-B23960AB0A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB3F3DD-FA8E-4290-AE41-B23960AB0A75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{84386519-B432-456F-9A00-5529FB8E811B} = {C5837FFE-4611-4E7E-8BC5-EB090EE12931}
 		{43584406-C954-459F-8179-1FEE43000B61} = {C5837FFE-4611-4E7E-8BC5-EB090EE12931}
 		{F874218A-CC82-45F7-9EF8-3FD648EBE5C0} = {E78798DB-0184-4463-BF50-98F4464545A0}
+		{AEB3F3DD-FA8E-4290-AE41-B23960AB0A75} = {C5837FFE-4611-4E7E-8BC5-EB090EE12931}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D33954EE-C51F-4228-8258-8F384834FCED}

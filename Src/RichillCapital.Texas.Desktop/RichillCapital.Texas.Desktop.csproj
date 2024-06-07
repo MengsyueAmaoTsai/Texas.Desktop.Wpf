@@ -10,13 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RichillCapital.Texas.Logging\RichillCapital.Texas.Logging.csproj" />
     <ProjectReference Include="..\RichillCapital.Texas.Modules\RichillCapital.Texas.Modules.csproj" />
+    <ProjectReference Include="..\RichillCapital.Texas.Notifications\RichillCapital.Texas.Notifications.csproj" />
     <ProjectReference Include="..\RichillCapital.Texas.Persistence\RichillCapital.Texas.Persistence.csproj" />
   </ItemGroup>
 
