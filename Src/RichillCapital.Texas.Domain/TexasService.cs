@@ -1,4 +1,7 @@
 ﻿using RichillCapital.SharedKernel.Monads;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("RichillCapital.Texas.Domain.UnitTests")]
 
 namespace RichillCapital.Texas.Domain;
 

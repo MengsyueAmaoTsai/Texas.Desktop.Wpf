@@ -7,13 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{C5837FFE-461
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RichillCapital.Texas.Desktop", "Src\RichillCapital.Texas.Desktop\RichillCapital.Texas.Desktop.csproj", "{84FFB6B1-DC79-4B45-AD9F-46925EDD233D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichillCapital.Texas.Domain", "Src\RichillCapital.Texas.Domain\RichillCapital.Texas.Domain.csproj", "{D4B26B76-54CB-4577-9B05-8D7DD3FA65E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RichillCapital.Texas.Domain", "Src\RichillCapital.Texas.Domain\RichillCapital.Texas.Domain.csproj", "{D4B26B76-54CB-4577-9B05-8D7DD3FA65E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichillCapital.Texas.Modules", "Src\RichillCapital.Texas.Modules\RichillCapital.Texas.Modules.csproj", "{C9D36FC3-16AB-401D-AADB-A04E54335FE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RichillCapital.Texas.Modules", "Src\RichillCapital.Texas.Modules\RichillCapital.Texas.Modules.csproj", "{C9D36FC3-16AB-401D-AADB-A04E54335FE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichillCapital.Texas.Persistence", "Src\RichillCapital.Texas.Persistence\RichillCapital.Texas.Persistence.csproj", "{84386519-B432-456F-9A00-5529FB8E811B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RichillCapital.Texas.Persistence", "Src\RichillCapital.Texas.Persistence\RichillCapital.Texas.Persistence.csproj", "{84386519-B432-456F-9A00-5529FB8E811B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichillCapital.Texas.Logging", "Src\RichillCapital.Texas.Logging\RichillCapital.Texas.Logging.csproj", "{43584406-C954-459F-8179-1FEE43000B61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RichillCapital.Texas.Logging", "Src\RichillCapital.Texas.Logging\RichillCapital.Texas.Logging.csproj", "{43584406-C954-459F-8179-1FEE43000B61}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E78798DB-0184-4463-BF50-98F4464545A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichillCapital.Texas.Domain.UnitTests", "Tests\RichillCapital.Texas.Domain.UnitTests\RichillCapital.Texas.Domain.UnitTests.csproj", "{F874218A-CC82-45F7-9EF8-3FD648EBE5C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,10 @@ Global
 		{43584406-C954-459F-8179-1FEE43000B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43584406-C954-459F-8179-1FEE43000B61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43584406-C954-459F-8179-1FEE43000B61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F874218A-CC82-45F7-9EF8-3FD648EBE5C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F874218A-CC82-45F7-9EF8-3FD648EBE5C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F874218A-CC82-45F7-9EF8-3FD648EBE5C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F874218A-CC82-45F7-9EF8-3FD648EBE5C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +59,7 @@ Global
 		{C9D36FC3-16AB-401D-AADB-A04E54335FE7} = {C5837FFE-4611-4E7E-8BC5-EB090EE12931}
 		{84386519-B432-456F-9A00-5529FB8E811B} = {C5837FFE-4611-4E7E-8BC5-EB090EE12931}
 		{43584406-C954-459F-8179-1FEE43000B61} = {C5837FFE-4611-4E7E-8BC5-EB090EE12931}
+		{F874218A-CC82-45F7-9EF8-3FD648EBE5C0} = {E78798DB-0184-4463-BF50-98F4464545A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D33954EE-C51F-4228-8258-8F384834FCED}
