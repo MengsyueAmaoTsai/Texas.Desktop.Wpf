@@ -22,6 +22,8 @@ public sealed class Session : Entity<SessionId>
     public IReadOnlyCollection<Player> Players => _players;
 
     public int TotalBuyIn => _players.Sum(p => p.TotalBuyIn);
+    public int TotalCashOut => _players.Sum(p => p.TotalCashOut);
+    public int TotalChips => TotalBuyIn - TotalCashOut;
 
     public static ErrorOr<Session> New(int buyInSize)
     {

@@ -65,9 +65,37 @@ internal class TexasService : ITexasService
         return Result.Success;
     }
     
-    public Result CashOut(int finalChipValue) => Result.Success;
+    public Result CashOut(
+        PlayerId playerId, 
+        int remainingSize)
+    {
+        var maybePlayer = GetPlayer(playerId);
+
+        if (maybePlayer.IsNull)
+        {
+            return DomainErrors
+                .PlayerNotFound(playerId)
+                .ToResult();
+        }
+
+        var cashOutResult = maybePlayer.Value.CashOut(remainingSize);
+
+        return cashOutResult;
+    }
     
-    public Result CloseSession() => Result.Success;
+    public Result CloseSession()
+    {
+        if (CurrentSession.IsNull)
+        {
+           return DomainErrors
+                .SessionNotOpen
+                .ToResult();
+        }
+
+        CurrentSession = Maybe<Session>.Null;
+
+        return Result.Success;
+    }
     
     public Result<Session> NewSession(int buyInSize = DefaultBuyInSize)
     {

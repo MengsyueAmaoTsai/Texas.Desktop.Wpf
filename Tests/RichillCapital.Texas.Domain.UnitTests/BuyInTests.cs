@@ -44,5 +44,6 @@ public sealed class BuyInTests
         buyInResults.Should().OnlyContain(result => result.IsSuccess);
         currentSession.Players.Should().HaveCount(players.Count);
         currentSession.TotalBuyIn.Should().Be(expectedTotalBuyIn);
+        currentSession.TotalCashOut.Should().Be(0);
     }
 }

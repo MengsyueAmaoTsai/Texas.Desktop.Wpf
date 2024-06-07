@@ -18,4 +18,10 @@ public static class DomainErrors
     
     public static Error PlayerNotFound(PlayerId playerId) => Error
         .NotFound("Players.NotFound", $"Player {playerId} not found");  
+
+    public static Error PlayerWithoutBuyIn = Error
+        .Conflict("Players.WithoutBuyIn", "Player does not have a buy-in");
+
+    public static Error PlayerAlreadyCashedOut(PlayerId id) =>
+        Error.Conflict("Players.AlreadyCashedOut", $"Player {id} already cashed out");
 }
