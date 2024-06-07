@@ -32,38 +32,14 @@ public sealed partial class MainViewModel : ObservableRecipient
         _dialogService = dialogService;
         _texasService = texasService;
 
-        _messenger.Register<SessionOpenedDomainEvent>(this, HandleSessionOpened);
-        _messenger.Register<SessionClosedDomainEvent>(this, HandleSessionClosed);
-        _messenger.Register<PlayerBoughtInDomainEvent>(this, HandlePlayerBoughtIn);
-        _messenger.Register<PlayerCashedOutDomainEvent>(this, HandlePlaerCashedOut);
-        _messenger.Register<PlayerJoinedDomainEvent>(this, HandlePlayerJoined);
+        _messenger.Register<SessionOpenedDomainEvent>(this, (_, _) => UpdateUI());
+        _messenger.Register<SessionClosedDomainEvent>(this, (_, _) => UpdateUI());
+        _messenger.Register<PlayerBoughtInDomainEvent>(this, (_, _) => UpdateUI());
+        _messenger.Register<PlayerCashedOutDomainEvent>(this, (_, _) => UpdateUI());
+        _messenger.Register<PlayerJoinedDomainEvent>(this, (_, _) => UpdateUI());
     }
 
-    private void HandlePlayerJoined(object recipient, PlayerJoinedDomainEvent message)
-    {
-        UpdateSession();
-        UpdatePlayers();
-    }
-
-    private void HandlePlaerCashedOut(object recipient, PlayerCashedOutDomainEvent message)
-    {
-        UpdateSession();
-        UpdatePlayers();
-    }
-
-    private void HandlePlayerBoughtIn(object recipient, PlayerBoughtInDomainEvent message)
-    {
-        UpdateSession();
-        UpdatePlayers();
-    }
-
-    private void HandleSessionClosed(object recipient, SessionClosedDomainEvent message)
-    {
-        UpdateSession();
-        UpdatePlayers();
-    }
-
-    private void HandleSessionOpened(object recipient, SessionOpenedDomainEvent message)
+    private void UpdateUI()
     {
         UpdateSession();
         UpdatePlayers();
