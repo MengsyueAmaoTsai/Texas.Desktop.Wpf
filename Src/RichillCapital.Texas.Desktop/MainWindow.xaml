@@ -10,7 +10,9 @@
         Title="RichillCapital Texas Desktop" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
+        
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,16 +20,37 @@
         </Grid.RowDefinitions>
 
         <ToolBar Grid.Row="0">
+            <Button Content="開啟牌局" Command="{Binding OpenSessionCommand}"/>
+            <Button Content="結束牌局" Command="{Binding CloseSessionCommand}"/>
             <Button Content="新增玩家" Command="{Binding OpenAddPlayerDialogCommand}"/>
         </ToolBar>
 
         <Grid Grid.Row="1">
-            <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Players}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <DataGrid Grid.Row="0" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Players}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="名稱" Width="Auto" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Buy In" Width="Auto" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Cash Out" Width="Auto" Binding="{Binding Name}"/>
+                </DataGrid.Columns>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Buy-In" Command="{Binding BuyInCommand}"/>
+                        <MenuItem Header="Cash-Out" Command="{Binding CashOutCommand}"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Logs}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="時間" Width="Auto" Binding="{Binding Time}"/>
+                    <DataGridTextColumn Header="訊息" Width="Auto" Binding="{Binding Message}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -50,6 +73,13 @@
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="已結"/>
+                    <TextBox MinWidth="80" Text="8,000"/>
+                </StackPanel>
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="進行時間"/>
                     <TextBox MinWidth="80" Text="8,000"/>
                 </StackPanel>
             </StatusBarItem>

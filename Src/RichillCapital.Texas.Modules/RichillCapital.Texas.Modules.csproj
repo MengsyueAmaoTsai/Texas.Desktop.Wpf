@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RichillCapital.Texas.Domain\RichillCapital.Texas.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

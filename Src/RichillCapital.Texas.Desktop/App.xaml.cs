@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
+using RichillCapital.Texas.Domain;
 
 namespace RichillCapital.Texas.Desktop;
 
@@ -37,6 +38,8 @@ public partial class App : Application
             configurationBuilder.AddUserSecrets(typeof(App).Assembly))
         .ConfigureServices((hostContext, services) =>
         {
+            services.AddDomainServices();
+
             services.AddSingleton<IDialogService, DialogService>();
 
             services.AddSingleton<MainWindow>();
