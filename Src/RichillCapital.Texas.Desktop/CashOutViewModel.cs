@@ -6,22 +6,32 @@ using System.Windows;
 
 namespace RichillCapital.Texas.Desktop;
 
-public sealed partial class CashOutViewModel(
-    ITexasService _texasService,
-    IDialogService _dialogService) : 
+public sealed partial class CashOutViewModel : 
     ObservableObject
 {
+    private readonly ITexasService _texasService;
+    private readonly IDialogService _dialogService;
+    private readonly PlayerId _playerId;
+
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CashOutCommand))]
     private int _remainingSize = 0;
 
-    private readonly PlayerId PlayerId = PlayerId.From(1).Value;
+    public CashOutViewModel(
+        ITexasService texasService,
+        IDialogService dialogService,
+        MainViewModel mainViewModel)
+    {
+        _texasService = texasService;
+        _dialogService = dialogService;
+        _playerId = PlayerId.From(mainViewModel.SelectedPlayer.Id).Value;
+    }
 
     [RelayCommand(CanExecute = nameof(CanCashOut))]
     private async Task CashOutAsync()
     {
         var result = await _texasService.CashOutAsync(
-            PlayerId, 
+            _playerId, 
             RemainingSize, 
             default);
 
@@ -30,7 +40,6 @@ public sealed partial class CashOutViewModel(
             MessageBox.Show($"{result.Error}");
             return;
         }
-
     }
 
     private bool CanCashOut() => RemainingSize >= 0;
