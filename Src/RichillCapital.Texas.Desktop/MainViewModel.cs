@@ -14,11 +14,11 @@ public sealed partial class MainViewModel : ObservableObject
     private readonly ITexasService _texasService;
 
     [ObservableProperty]
-    public required SessionModel _currentSession;
+    public SessionModel? _currentSession;
 
-    public required ObservableCollection<LogModel> Logs { get; set; }
+    public required ObservableCollection<LogModel> Logs { get; set; } = [];
 
-    public required ObservableCollection<PlayerModel> Players { get; set; }
+    public required ObservableCollection<PlayerModel> Players { get; set; } = [];
 
     public MainViewModel(
         IDialogService dialogService,
@@ -27,40 +27,6 @@ public sealed partial class MainViewModel : ObservableObject
         _dialogService = dialogService;
         _texasService = texasService;
 
-        Players =
-        [
-            new() 
-            {
-                Id = 1,
-                Name = "Jiayee",
-            },
-            new()
-            {
-                Id = 2,
-                Name = "小祐",
-            },
-            new()
-            {
-                Id = 3,
-                Name = "Reno",
-            },
-            new()
-            {
-                Id = 4,
-                Name = "阿貴",
-            },
-            new()
-            {
-                Id = 5,
-                Name = "佳緯",
-            },
-            new() 
-            {
-                Id = 6,
-                Name = "Amao",
-            },
-        ];
-
         BindingOperations.EnableCollectionSynchronization(Players, new());
     }
 
@@ -68,7 +34,7 @@ public sealed partial class MainViewModel : ObservableObject
     private void OpenSession()
     {
         var result = _texasService.NewSession();
-        
+
         if (result.IsFailure)
         {
             MessageBox.Show($"{result.Error}");
@@ -78,41 +44,33 @@ public sealed partial class MainViewModel : ObservableObject
         {
             CurrentSession = result.Value.ToModel();
         }
-
-        CurrentSession = CurrentSession with
-        {
-        };
     }
 
-    private bool CanOpenSession() => true;
+    [RelayCommand(CanExecute = nameof(CanBuyIn))]
+    private void OpenBuyInDialog() => _dialogService.ShowDialog<BuyInDialog>();
+
+    [RelayCommand(CanExecute = nameof(CanAddPlayer))]
+    private void OpenAddPlayerDialog() => _dialogService.ShowDialog<CreatePlayerDialog>();
+
+    [RelayCommand(CanExecute = nameof(CanCashOut))]
+    private void OpenCashOutDialog() => _dialogService.ShowDialog<CashOutDialog>();
 
     [RelayCommand(CanExecute = nameof(CanCloseSession))]
     private void CloseSession()
     {
-        MessageBox.Show("Close session");
+        var result = _texasService.CloseSession();
+
+        if (result.IsFailure)
+        {
+            MessageBox.Show($"{result.Error}");
+        }
+
+        CurrentSession = null;
     }
 
-    private bool CanCloseSession() => true;
-
-    [RelayCommand(CanExecute = nameof(CanAddPlayer))]
-    private void OpenAddPlayerDialog()
-    {
-        MessageBox.Show("Open add player dialog");
-    }
-
+    private bool CanOpenSession() => true;
     private bool CanAddPlayer() => true;
-
-    [RelayCommand]
-    private void BuyIn()
-    {
-        MessageBox.Show("Buy in");
-    }
-
-    [RelayCommand(CanExecute = nameof(CanCashOut))]
-    private void CashOut()
-    {
-        MessageBox.Show("Cash out");
-    }
-
+    private bool CanBuyIn() => true;
     private bool CanCashOut() => true;
+    private bool CanCloseSession() => true;
 }

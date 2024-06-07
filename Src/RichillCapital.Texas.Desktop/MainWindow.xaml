@@ -7,7 +7,8 @@
         d:DataContext="{d:DesignInstance local:MainViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="RichillCapital Texas Desktop" Height="450" Width="800">
+        Title="RichillCapital Texas Desktop" 
+        Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
         
@@ -35,14 +36,14 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="名稱" Width="Auto" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Buy In" Width="Auto" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Cash Out" Width="Auto" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Buy In" Width="Auto" Binding="{Binding TotalBuyIn}"/>
+                    <DataGridTextColumn Header="Cash Out" Width="Auto" Binding="{Binding TotalCashOut}"/>
                 </DataGrid.Columns>
 
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Buy-In" Command="{Binding BuyInCommand}"/>
-                        <MenuItem Header="Cash-Out" Command="{Binding CashOutCommand}"/>
+                        <MenuItem Header="Buy-In" Command="{Binding OpenBuyInDialogCommand}"/>
+                        <MenuItem Header="Cash-Out" Command="{Binding OpenCashOutDialogCommand}"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
