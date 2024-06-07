@@ -12,17 +12,17 @@ public sealed class BuyInTests
 
         texasService.NewSession();
 
-        var players = new List<string>
+        var players = new List<(string Name, int InitialBuyIn)>
         {
-            "Jiayee",
-            "Reno",
-            "Amao",
+            ("Jiayee", 2),
+            ("Reno", 3),
+            ("Amao", 3),
         };
 
         var buyIdResults = players
-            .Select(playerName =>
+            .Select(p =>
             {
-                var addPlayerResult = texasService.AddPlayer(playerName);
+                var addPlayerResult = texasService.AddPlayer(p.Name);
 
                 if (addPlayerResult.IsFailure)
                 {
@@ -31,7 +31,7 @@ public sealed class BuyInTests
 
                 var player = addPlayerResult.Value;
 
-                var buyIdResult = texasService.BuyIn(player.Id, 1);
+                var buyIdResult = texasService.BuyIn(player.Id, p.InitialBuyIn);
 
                 return buyIdResult;
             });
@@ -40,7 +40,9 @@ public sealed class BuyInTests
         
         var currentSession = texasService.GetCurrentSession().Value;
 
+        var expectedTotalBuyIn = players.Sum(p => p.InitialBuyIn * currentSession.BuyInSize);
+
         currentSession.Players.Should().HaveCount(players.Count);
-        currentSession.TotalBuyIn.Should().Be(players.Count * 1000);
+        currentSession.TotalBuyIn.Should().Be(expectedTotalBuyIn);
     }
 }
