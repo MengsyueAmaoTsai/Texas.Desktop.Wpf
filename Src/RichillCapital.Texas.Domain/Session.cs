@@ -5,6 +5,8 @@ namespace RichillCapital.Texas.Domain;
 
 public sealed class Session : Entity<SessionId>
 {
+    private const int MaxPlayers = 10;
+
     private readonly List<Player> _players = [];
 
     public Session(
@@ -22,12 +24,25 @@ public sealed class Session : Entity<SessionId>
 
         return newSession.ToErrorOr();
     }
-}
 
-public sealed class Player : Entity<PlayerId>
-{
-    private Player(PlayerId id) 
-        : base(id)
+    public Result AddPlayer(Player player)
     {
+        if (_players.Count >= MaxPlayers)
+        {
+            return DomainErrors
+                .MaxPlayersReached(MaxPlayers)
+                .ToResult();
+        }
+
+        if (_players.Any(p => p.Name == player.Name))
+        {
+            return DomainErrors
+                .DuplicatePlayerName(player.Name)
+                .ToResult();
+        }
+
+        _players.Add(player);
+
+        return Result.Success;
     }
 }

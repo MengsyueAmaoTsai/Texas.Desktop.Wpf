@@ -1,12 +1,11 @@
 using FluentAssertions;
-using RichillCapital.SharedKernel;
 
 namespace RichillCapital.Texas.Domain.UnitTests;
 
 public sealed class NewSessionTests
 {
     [Fact]
-    public void NewSession_When_CurrentSessionExists_Should_ReturnsError()
+    public void When_CurrentSessionExists_Should_ReturnsError()
     {
         // Arrange
         var texasService = new TexasService();
@@ -21,7 +20,7 @@ public sealed class NewSessionTests
     }
 
     [Fact]
-    public void NewSession_When_CurrentSessionDoesNotExist_Should_ReturnsSession()
+    public void When_CurrentSessionDoesNotExist_Should_ReturnsSession()
     {
         // Arrange
         var texasService = new TexasService();

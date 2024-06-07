@@ -31,32 +31,32 @@ public sealed partial class MainViewModel : ObservableObject
         [
             new() 
             {
-                Id = "1",
+                Id = 1,
                 Name = "Jiayee",
             },
             new()
             {
-                Id = "2",
+                Id = 2,
                 Name = "小祐",
             },
             new()
             {
-                Id = "3",
+                Id = 3,
                 Name = "Reno",
             },
             new()
             {
-                Id = "4",
+                Id = 4,
                 Name = "阿貴",
             },
             new()
             {
-                Id = "5",
+                Id = 5,
                 Name = "佳緯",
             },
             new() 
             {
-                Id = "6",
+                Id = 6,
                 Name = "Amao",
             },
         ];

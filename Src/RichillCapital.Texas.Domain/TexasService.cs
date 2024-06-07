@@ -9,9 +9,38 @@ internal class TexasService : ITexasService
 {
     private Maybe<Session> CurrentSession { get; set; }
 
-    public Result AddPlayer(string id, string name)
+    public Result<Player> AddPlayer(string name)
     {
-        return Result.Success;
+        if (CurrentSession.IsNull)
+        {
+            return DomainErrors
+                .SessionNotOpen
+                .ToResult<Player>();
+        }
+
+        var idResult = PlayerId.From(CurrentSession.Value.Players.Count + 1);
+
+        if (idResult.IsFailure)
+        {
+            return idResult.Error.ToResult<Player>();
+        }
+
+        var errorOrPlayer = Player.Create(idResult.Value, name);
+        
+        if (errorOrPlayer.HasError)
+        {
+            return errorOrPlayer.Errors.First()
+                .ToResult<Player>();
+        }
+
+        var addPlayerResult = CurrentSession.Value.AddPlayer(errorOrPlayer.Value);
+
+        if (addPlayerResult.IsFailure)
+        {
+            return addPlayerResult.Error.ToResult<Player>();
+        }
+
+        return errorOrPlayer.Value.ToResult();
     }
     
     public Result BuyIn(int groups = 1) => Result.Success;
