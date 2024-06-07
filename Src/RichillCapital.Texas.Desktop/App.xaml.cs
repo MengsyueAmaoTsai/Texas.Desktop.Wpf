@@ -1,9 +1,9 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using RichillCapital.Texas.Domain;
+using RichillCapital.Texas.Modules;
 
 namespace RichillCapital.Texas.Desktop;
 
@@ -40,22 +40,8 @@ public partial class App : Application
         {
             services.AddDomainServices();
 
-            services.AddSingleton<IDialogService, DialogService>();
+            services.AddMediators();
 
-            services.AddSingleton<MainWindow>();
-            services.AddTransient<CreatePlayerDialog>();
-            services.AddTransient<BuyInDialog>();
-            services.AddTransient<CashOutDialog>();
-
-            services.AddSingleton<MainViewModel>();
-            services.AddTransient<CreatePlayerViewModel>();
-            services.AddTransient<BuyInViewModel>();
-            services.AddTransient<CashOutViewModel>();
-
-            services.AddSingleton<WeakReferenceMessenger>();
-            services.AddSingleton<IMessenger, WeakReferenceMessenger>(provider =>
-                provider.GetRequiredService<WeakReferenceMessenger>());
-
-            services.AddSingleton(_ => Current.Dispatcher);
+            services.AddControls();
         });
 }
