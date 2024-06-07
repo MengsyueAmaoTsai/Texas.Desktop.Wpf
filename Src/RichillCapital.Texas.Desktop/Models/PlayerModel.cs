@@ -6,8 +6,8 @@ public sealed record PlayerModel
 {
     public required int Id { get; init; }
     public required string Name { get; init; }
-    public required decimal TotalBuyIn { get; init; }
-    public required decimal TotalCashOut { get; init; }
+    public required int TotalBuyIn { get; init; }
+    public required int TotalCashOut { get; init; }
 }
 
 internal static class PlayerModelMappings

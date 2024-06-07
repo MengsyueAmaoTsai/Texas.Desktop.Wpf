@@ -20,7 +20,7 @@ public sealed partial class MainViewModel : ObservableRecipient
     [NotifyCanExecuteChangedFor(nameof(OpenAddPlayerDialogCommand))]
     [NotifyCanExecuteChangedFor(nameof(OpenCashOutDialogCommand))]
     [NotifyCanExecuteChangedFor(nameof(CloseSessionCommand))]
-    public SessionModel? _currentSession;
+    public TexasSessionModel? _currentSession;
 
     public required ObservableCollection<PlayerModel> Players { get; set; } = [];
 
@@ -41,34 +41,50 @@ public sealed partial class MainViewModel : ObservableRecipient
 
     private void HandlePlayerJoined(object recipient, PlayerJoinedDomainEvent message)
     {
+        UpdateSession();
+        UpdatePlayers();
+    }
+
+    private void HandlePlaerCashedOut(object recipient, PlayerCashedOutDomainEvent message)
+    {
+        UpdateSession();
+        UpdatePlayers();
+    }
+
+    private void HandlePlayerBoughtIn(object recipient, PlayerBoughtInDomainEvent message)
+    {
+        UpdateSession();
+        UpdatePlayers();
+    }
+
+    private void HandleSessionClosed(object recipient, SessionClosedDomainEvent message)
+    {
+        UpdateSession();
+        UpdatePlayers();
+    }
+
+    private void HandleSessionOpened(object recipient, SessionOpenedDomainEvent message)
+    {
+        UpdateSession();
+        UpdatePlayers();
+    }
+
+    private void UpdatePlayers()
+    {
         Players.Clear();
 
         var players = _texasService.GetPlayers();
-        
+
         foreach (var player in players)
         {
             Players.Add(player.ToModel());
         }
     }
 
-    private void HandlePlaerCashedOut(object recipient, PlayerCashedOutDomainEvent message)
+    private void UpdateSession()
     {
-        MessageBox.Show("Player cashed out");
-    }
-    
-    private void HandlePlayerBoughtIn(object recipient, PlayerBoughtInDomainEvent message)
-    {
-        MessageBox.Show("Player bought in");
-    }
-    
-    private void HandleSessionClosed(object recipient, SessionClosedDomainEvent message)
-    {
-        MessageBox.Show("Session closed");
-    }
-
-    private void HandleSessionOpened(object recipient, SessionOpenedDomainEvent message)
-    {
-        MessageBox.Show("Session opened");
+        var session = _texasService.GetSession();
+        CurrentSession = session.IsNull ? null : session.Value.ToModel();
     }
 
     [RelayCommand(CanExecute = nameof(CanOpenSession))]

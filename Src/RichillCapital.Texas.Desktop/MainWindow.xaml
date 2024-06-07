@@ -60,21 +60,21 @@
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="籌碼總量"/>
-                    <TextBox MinWidth="80" Text="10,000"/>
+                    <TextBox Text="{Binding CurrentSession.TotalBuyIn}" MinWidth="80"/>
                 </StackPanel>
             </StatusBarItem>
 
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="未結"/>
-                    <TextBox MinWidth="80" Text="8,000"/>
+                    <TextBox Text="{Binding CurrentSession.RemainingSize}" MinWidth="80"/>
                 </StackPanel>
             </StatusBarItem>
 
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="已結"/>
-                    <TextBox MinWidth="80" Text="8,000"/>
+                    <TextBox Text="{Binding CurrentSession.TotalCashOut}" MinWidth="80"/>
                 </StackPanel>
             </StatusBarItem>
 

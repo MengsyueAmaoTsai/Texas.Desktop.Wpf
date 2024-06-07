@@ -183,4 +183,6 @@ internal class TexasService(
     public IEnumerable<Player> GetPlayers() => CurrentSession.HasValue ? 
         CurrentSession.Value.Players.ToList() : 
         [];
+
+    public Maybe<Session> GetSession() => CurrentSession;
 }

@@ -6,6 +6,8 @@ namespace RichillCapital.Texas.Domain.Common;
 
 public interface ITexasService
 {
+    Maybe<Session> GetSession();
+
     Task<Result<Session>> NewSessionAsync(int buyInSize = 1000, CancellationToken cancellationToken = default);
     
     Task<Result<Player>> AddPlayerAsync(string name, CancellationToken cancellationToken = default);
