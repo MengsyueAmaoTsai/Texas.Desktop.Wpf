@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using RichillCapital.Texas.Domain;
+using RichillCapital.Texas.Domain.Common;
 
 namespace RichillCapital.Texas.Desktop;
 

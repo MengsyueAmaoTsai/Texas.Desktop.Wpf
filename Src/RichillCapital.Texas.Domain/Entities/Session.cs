@@ -1,7 +1,8 @@
 ﻿using RichillCapital.SharedKernel;
 using RichillCapital.SharedKernel.Monads;
+using RichillCapital.Texas.Domain.Errors;
 
-namespace RichillCapital.Texas.Domain;
+namespace RichillCapital.Texas.Domain.Entities;
 
 public sealed class Session : Entity<SessionId>
 {
@@ -11,12 +12,12 @@ public sealed class Session : Entity<SessionId>
 
     public Session(
         SessionId id,
-        int buyInSize) 
+        int buyInSize)
         : base(id)
     {
         BuyInSize = buyInSize;
     }
-    
+
     public int BuyInSize { get; private set; }
 
     public IReadOnlyCollection<Player> Players => _players;

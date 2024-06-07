@@ -1,4 +1,5 @@
 using FluentAssertions;
+using RichillCapital.Texas.Domain.Services;
 
 namespace RichillCapital.Texas.Domain.UnitTests;
 

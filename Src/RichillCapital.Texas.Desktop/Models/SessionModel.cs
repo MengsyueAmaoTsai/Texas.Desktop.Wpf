@@ -1,4 +1,4 @@
-﻿using RichillCapital.Texas.Domain;
+﻿using RichillCapital.Texas.Domain.Entities;
 
 namespace RichillCapital.Texas.Desktop.Models;
 

@@ -9,8 +9,4 @@
   <ItemGroup>
     <PackageReference Include="RichillCapital.SharedKernel" Version="1.3.5" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\" />
-  </ItemGroup>
 </Project>

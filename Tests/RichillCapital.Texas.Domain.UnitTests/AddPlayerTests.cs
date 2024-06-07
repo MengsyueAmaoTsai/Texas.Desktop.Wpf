@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using RichillCapital.Texas.Domain.Services;
 
 namespace RichillCapital.Texas.Domain.UnitTests;
 
@@ -9,7 +10,7 @@ public sealed class AddPlayerTests
     {
         // Arrange
         var texasService = new TexasService();
-        
+
         // Act
         var result = texasService.AddPlayer("Jiayee");
 
@@ -29,7 +30,7 @@ public sealed class AddPlayerTests
         // Act
         texasService.AddPlayer("jiayee");
         var result = texasService.AddPlayer("jiayee");
-        
+
         // Assert
         result.IsFailure.Should().BeTrue();
         result.Error.Code.Should().Be("Sessions.DuplicatePlayerName");
@@ -43,7 +44,7 @@ public sealed class AddPlayerTests
 
         texasService.NewSession();
 
-        List<string> players = 
+        List<string> players =
         [
             "Jiayee",
             "Reno",

@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 using RichillCapital.SharedKernel.Monads;
+using RichillCapital.Texas.Domain.Errors;
+using RichillCapital.Texas.Domain.Services;
 
 namespace RichillCapital.Texas.Domain.UnitTests;
 
@@ -27,7 +29,7 @@ public sealed class CashOutTests
     public void When_PlayerAlreadyCashedOut_Should_ReturnFailure()
     {
 
-       // Assert
+        // Assert
         var service = new TexasService();
 
         service.NewSession();
@@ -69,13 +71,13 @@ public sealed class CashOutTests
         }
 
         var currentSession = service.GetCurrentSession().Value;
-        
+
         var firstPlayer = players.First();
-        
+
         service.CashOut(firstPlayer.Id, firstPlayer.RemainingChips);
 
         var expectedTotalBuyIn = players.Sum(p => p.InitialBuyIn * currentSession.BuyInSize);
-        
+
         // Act
         currentSession.TotalBuyIn.Should().Be(expectedTotalBuyIn);
         currentSession.TotalCashOut.Should().Be(firstPlayer.RemainingChips);

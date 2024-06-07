@@ -24,7 +24,7 @@
         
         <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
             <TextBlock Margin="10" Text="名稱"/>
-            <TextBox Margin="10" MinWidth="100"/>
+            <TextBox Text="{Binding PlayerName, UpdateSourceTrigger=PropertyChanged}" Margin="10" MinWidth="100"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">

@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using RichillCapital.SharedKernel.Monads;
+using RichillCapital.Texas.Domain.Services;
 
 namespace RichillCapital.Texas.Domain.UnitTests;
 

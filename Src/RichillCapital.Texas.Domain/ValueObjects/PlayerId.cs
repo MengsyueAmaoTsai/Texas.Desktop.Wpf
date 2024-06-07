@@ -1,11 +1,11 @@
 ﻿using RichillCapital.SharedKernel;
 using RichillCapital.SharedKernel.Monads;
 
-namespace RichillCapital.Texas.Domain;
+namespace RichillCapital.Texas.Domain.ValueObjects;
 
 public class PlayerId : SingleValueObject<int>
 {
-    private PlayerId(int value) 
+    private PlayerId(int value)
         : base(value)
     {
     }

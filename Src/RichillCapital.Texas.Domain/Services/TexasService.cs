@@ -1,9 +1,13 @@
 ﻿using RichillCapital.SharedKernel.Monads;
+using RichillCapital.Texas.Domain.Common;
+using RichillCapital.Texas.Domain.Entities;
+using RichillCapital.Texas.Domain.Errors;
+using RichillCapital.Texas.Domain.ValueObjects;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("RichillCapital.Texas.Domain.UnitTests")]
 
-namespace RichillCapital.Texas.Domain;
+namespace RichillCapital.Texas.Domain.Services;
 
 internal class TexasService : ITexasService
 {
@@ -30,7 +34,7 @@ internal class TexasService : ITexasService
         }
 
         var errorOrPlayer = Player.Create(idResult.Value, name);
-        
+
         if (errorOrPlayer.HasError)
         {
             return errorOrPlayer.Errors.First()
@@ -46,7 +50,7 @@ internal class TexasService : ITexasService
 
         return errorOrPlayer.Value.ToResult();
     }
-    
+
     public Result BuyIn(PlayerId playerId, int groups = 1)
     {
         var maybePlayer = GetPlayer(playerId);
@@ -64,9 +68,9 @@ internal class TexasService : ITexasService
 
         return Result.Success;
     }
-    
+
     public Result CashOut(
-        PlayerId playerId, 
+        PlayerId playerId,
         int remainingSize)
     {
         var maybePlayer = GetPlayer(playerId);
@@ -82,21 +86,21 @@ internal class TexasService : ITexasService
 
         return cashOutResult;
     }
-    
+
     public Result CloseSession()
     {
         if (CurrentSession.IsNull)
         {
-           return DomainErrors
-                .SessionNotOpen
-                .ToResult();
+            return DomainErrors
+                 .SessionNotOpen
+                 .ToResult();
         }
 
         CurrentSession = Maybe<Session>.Null;
 
         return Result.Success;
     }
-    
+
     public Result<Session> NewSession(int buyInSize = DefaultBuyInSize)
     {
         if (CurrentSession.HasValue)
@@ -122,10 +126,10 @@ internal class TexasService : ITexasService
         return newSession.ToResult();
     }
 
-    public int GetPlayerCount() => CurrentSession.HasValue ? 
+    public int GetPlayerCount() => CurrentSession.HasValue ?
         CurrentSession.Value.Players.Count : 0;
 
-    public int GetTotalBuyIn() => CurrentSession.HasValue ? 
+    public int GetTotalBuyIn() => CurrentSession.HasValue ?
         CurrentSession.Value.Players.Sum(player => player.TotalBuyIn) : 0;
 
     private Maybe<Player> GetPlayer(PlayerId id)

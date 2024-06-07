@@ -1,6 +1,8 @@
 ﻿using RichillCapital.SharedKernel.Monads;
+using RichillCapital.Texas.Domain.Entities;
+using RichillCapital.Texas.Domain.ValueObjects;
 
-namespace RichillCapital.Texas.Domain;
+namespace RichillCapital.Texas.Domain.Common;
 
 public interface ITexasService
 {

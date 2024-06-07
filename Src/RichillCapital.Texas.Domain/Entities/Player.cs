@@ -1,8 +1,10 @@
 ﻿using RichillCapital.SharedKernel;
 using RichillCapital.SharedKernel.Monads;
+using RichillCapital.Texas.Domain.Errors;
+using RichillCapital.Texas.Domain.ValueObjects;
 using System.Numerics;
 
-namespace RichillCapital.Texas.Domain;
+namespace RichillCapital.Texas.Domain.Entities;
 
 public sealed class Player : Entity<PlayerId>
 {
@@ -10,12 +12,12 @@ public sealed class Player : Entity<PlayerId>
         PlayerId id,
         string name,
         int totalBuyIn,
-        int totalCashOut) 
+        int totalCashOut)
         : base(id)
     {
         Name = name;
         TotalBuyIn = totalBuyIn;
-        TotalCashOut = totalCashOut;    
+        TotalCashOut = totalCashOut;
     }
 
     public string Name { get; private set; }
@@ -24,11 +26,11 @@ public sealed class Player : Entity<PlayerId>
     public int TotalCashOut { get; private set; }
 
     public static ErrorOr<Player> Create(
-        PlayerId id, 
+        PlayerId id,
         string name)
     {
         var player = new Player(
-            id, 
+            id,
             name,
             totalBuyIn: 0,
             totalCashOut: 0);
