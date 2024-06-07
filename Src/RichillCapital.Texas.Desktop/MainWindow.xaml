@@ -7,7 +7,7 @@
         d:DataContext="{d:DesignInstance local:MainViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="450" Width="800">
+        Title="RichillCapital Texas Desktop" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
@@ -18,18 +18,42 @@
         </Grid.RowDefinitions>
 
         <ToolBar Grid.Row="0">
-            <Button Content="Add Player" Command="{Binding OpenAddPlayerDialogCommand}"/>
+            <Button Content="新增玩家" Command="{Binding OpenAddPlayerDialogCommand}"/>
         </ToolBar>
 
         <Grid Grid.Row="1">
-            <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Players}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Name" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="名稱" Width="Auto" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Buy In" Width="Auto" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Cash Out" Width="Auto" Binding="{Binding Name}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
 
-        <StatusBar Grid.Row="2">Hi</StatusBar>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="籌碼總量"/>
+                    <TextBox MinWidth="80" Text="10,000"/>
+                </StackPanel>
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="未結"/>
+                    <TextBox MinWidth="80" Text="8,000"/>
+                </StackPanel>
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="已結"/>
+                    <TextBox MinWidth="80" Text="8,000"/>
+                </StackPanel>
+            </StatusBarItem>
+
+        </StatusBar>
     </Grid>
 </Window>
