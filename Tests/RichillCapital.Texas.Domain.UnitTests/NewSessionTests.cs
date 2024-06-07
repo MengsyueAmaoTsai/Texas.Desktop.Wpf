@@ -1,8 +1,9 @@
 using FluentAssertions;
+using RichillCapital.SharedKernel;
 
 namespace RichillCapital.Texas.Domain.UnitTests;
 
-public sealed class TexasServiceTests
+public sealed class NewSessionTests
 {
     [Fact]
     public void NewSession_When_CurrentSessionExists_Should_ReturnsError()
@@ -30,5 +31,10 @@ public sealed class TexasServiceTests
         
         // Assert
         result.IsSuccess.Should().BeTrue();
+
+        var session = result.Value;
+        session.Should().NotBeNull();
+        session.Id.Should().NotBeNull();
+        session.Players.Should().HaveCount(0);
     }
 }

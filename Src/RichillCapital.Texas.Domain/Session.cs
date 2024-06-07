@@ -5,9 +5,15 @@ namespace RichillCapital.Texas.Domain;
 
 public sealed class Session : Entity<SessionId>
 {
-    public Session(SessionId id) : base(id)
+    private readonly List<Player> _players = [];
+
+    public Session(
+        SessionId id) 
+        : base(id)
     {
     }
+
+    public IReadOnlyCollection<Player> Players => _players;
 
     public static ErrorOr<Session> New()
     {
@@ -15,5 +21,13 @@ public sealed class Session : Entity<SessionId>
             SessionId.NewSessionId());
 
         return newSession.ToErrorOr();
+    }
+}
+
+public sealed class Player : Entity<PlayerId>
+{
+    private Player(PlayerId id) 
+        : base(id)
+    {
     }
 }
