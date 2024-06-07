@@ -22,6 +22,9 @@ public sealed partial class MainViewModel : ObservableRecipient
     [NotifyCanExecuteChangedFor(nameof(CloseSessionCommand))]
     public TexasSessionModel? _currentSession;
 
+    [ObservableProperty]
+    public required PlayerModel _selectedPlayer;
+
     public required ObservableCollection<PlayerModel> Players { get; set; } = [];
 
     public MainViewModel(
@@ -80,13 +83,30 @@ public sealed partial class MainViewModel : ObservableRecipient
     }
 
     [RelayCommand(CanExecute = nameof(CanBuyIn))]
-    private void OpenBuyInDialog() => _dialogService.ShowDialog<BuyInDialog>();
+    private void OpenBuyInDialog()
+    {
+        if (SelectedPlayer is null)
+        {
+            return;
+        }
+
+        _dialogService.ShowDialog<BuyInDialog>();
+    }
 
     [RelayCommand(CanExecute = nameof(CanAddPlayer))]
     private void OpenAddPlayerDialog() => _dialogService.ShowDialog<CreatePlayerDialog>();
 
+
     [RelayCommand(CanExecute = nameof(CanCashOut))]
-    private void OpenCashOutDialog() => _dialogService.ShowDialog<CashOutDialog>();
+    private void OpenCashOutDialog()
+    {
+        if (SelectedPlayer is null)
+        {
+            return;
+        }
+
+        _dialogService.ShowDialog<CashOutDialog>();
+    }
 
     [RelayCommand(CanExecute = nameof(CanCloseSession))]
     private async Task CloseSessionAsync()

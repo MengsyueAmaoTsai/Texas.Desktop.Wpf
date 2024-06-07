@@ -6,23 +6,33 @@ using System.Windows;
 
 namespace RichillCapital.Texas.Desktop;
 
-public sealed partial class BuyInViewModel(
-    ITexasService _texasService,
-    IDialogService _dialogService) : 
+public sealed partial class BuyInViewModel : 
     ObservableObject
 {
+    private readonly ITexasService _texasService;
+    private readonly IDialogService _dialogService;
+    private readonly PlayerId _playerId;
+
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(BuyInCommand))]
     private int _units = 1;
 
-    private readonly PlayerId PlayerId = PlayerId.From(1).Value;
+    public BuyInViewModel(
+        ITexasService texasService,
+        IDialogService dialogService,
+        MainViewModel mainViewModel)
+    {
+        _texasService = texasService;
+        _dialogService = dialogService;
+        _playerId = PlayerId.From(mainViewModel.SelectedPlayer.Id).Value;
+    }
 
     [RelayCommand(CanExecute = nameof(CanBuyIn))]
     private async Task BuyInAsync()
     {
         var result = await _texasService.BuyInAsync(
-            PlayerId, 
-            Units, 
+            _playerId,
+            Units,
             default);
 
         if (result.IsFailure)
