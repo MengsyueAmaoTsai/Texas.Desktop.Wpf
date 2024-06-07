@@ -6,12 +6,10 @@ namespace RichillCapital.Texas.Domain.UnitTests;
 public sealed class BuyInTests
 {
     [Fact]
-    public async Task When()
+    public void When_SessionIsOpenAndPlayerAdded_Should_ReturnSuccess()
     {
+        // Arrange
         var texasService = new TexasService();
-
-        texasService.NewSession();
-
         var players = new List<(string Name, int InitialBuyIn)>
         {
             ("Jiayee", 2),
@@ -19,7 +17,10 @@ public sealed class BuyInTests
             ("Amao", 3),
         };
 
-        var buyIdResults = players
+        // Act
+        texasService.NewSession();
+
+        var buyInResults = players
             .Select(p =>
             {
                 var addPlayerResult = texasService.AddPlayer(p.Name);
@@ -36,12 +37,11 @@ public sealed class BuyInTests
                 return buyIdResult;
             });
 
-        buyIdResults.Should().OnlyContain(result => result.IsSuccess);
-        
         var currentSession = texasService.GetCurrentSession().Value;
-
         var expectedTotalBuyIn = players.Sum(p => p.InitialBuyIn * currentSession.BuyInSize);
 
+        // Assert
+        buyInResults.Should().OnlyContain(result => result.IsSuccess);
         currentSession.Players.Should().HaveCount(players.Count);
         currentSession.TotalBuyIn.Should().Be(expectedTotalBuyIn);
     }
